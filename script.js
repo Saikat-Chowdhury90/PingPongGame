@@ -22,10 +22,24 @@ let gameState = 'start';
 	document.addEventListener('keydown', (e) => {
 	if (e.key == 'Enter') {
     console.log(e.key);
-		gameState = gameState == 'start' ? 'play' : 'start';
+		gameState = gameState == 'start' ? 'play' : 'end';
+		if(gameState == 'end')
+		{
+			
+			window.alert('Press Enter To Start Again');
+			message.style.left = 42 + 'vw';
+			ball_coord = initial_ball_coord;
+			ball.style = initial_ball.style;
+			score_2.innerHTML = 0 ;
+		    score_1.innerHTML = 0;
+
+			gameState = 'play';
+		}
 		if (gameState == 'play') {
 		message.innerHTML = 'Game Started';
 		message.style.left = 42 + 'vw';
+
+		
 		requestAnimationFrame(() => {
 			dx = Math.floor(Math.random() * 4) + 3;
 			dy = Math.floor(Math.random() * 4) + 3;
@@ -105,6 +119,29 @@ let gameState = 'start';
 		score_2.innerHTML = +score_2.innerHTML + 1;
 		} else {
 		score_1.innerHTML = +score_1.innerHTML + 1;
+		}
+		if(score_2.innerHTML == 5 || score_1.innerHTML == 5)
+		{
+			gameState = 'end';
+			if(score_2.innerHTML == 5)
+			{
+				ball_coord = initial_ball_coord;
+				ball.style = initial_ball.style;
+				message.innerHTML = 'Player_2 wins';
+				message.style.left = 38 + 'vw';
+				
+			}
+			if(score_1.innerHTML == 5)
+			{
+				ball_coord = initial_ball_coord;
+				ball.style = initial_ball.style;
+				message.innerHTML = 'Player_1 wins';
+				message.style.left = 38 + 'vw';
+			
+			}
+		
+			return;
+
 		}
 		gameState = 'start';
 
